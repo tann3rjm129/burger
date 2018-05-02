@@ -1,40 +1,57 @@
 
-var connection = require("./connection.js");
+var connection = require("../config/connection.js");
 
-// Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''burgers'' at line 1
+// returns object values such as {burger_name: cheese burger}, as string "burger_name = cheese burger"
+function objToSql(ob) {
+  var arr = [];
+
+  for (var key in ob) {
+    var value = ob[key];
+    if (Object.hasOwnProperty.call(ob, key)) {
+      if (typeof value === "string" && value.indexOf(" ") >= 0) {
+        value = "'" + value + "'";
+      }
+      arr.push(key + "=" + value);
+    }
+  }
+  return arr.toString();
+}
+
 
 var orm = {
-	all: function(table) {
+	selectAll: function(table, d) {
     var queryString = "SELECT * FROM ?";
     connection.query(queryString, [table], function(err, result) {
       if (err) {
         throw err;
       }
-      return result;
+      d(result);
     });
   },
-  create: function(table, cols, vals) {
-    var queryString = "INSERT INTO ?? (??) VALUES (?)";
+  insertOne: function(table, cols, vals, d) {
+    var queryString = "INSERT INTO ? (?) VALUES (?)";
 
-    connection.query(queryString, [table, cols, vals], function(err, result) {
+    connection.query(queryString, [table, cols.toString(), vals], function(err, result) {
       if (err) {
         throw err;
       }
 
-      return result;
+      d(result);
     });
   },
-  update: function(table, col, newValue, originalValue) {
-    var queryString = "UPDATE ?? SET ?? = ?? WHERE ?? = ?";
+  updateOne: function(table, Objvals, condition, d) {
+    var queryString = "UPDATE ? SET ? WHERE ?";
 
-    connection.query(queryString, [table, col, newValue, col, originalValue], function(err, result) {
+    connection.query(queryString, [table, objToSql(Objvals), condition], function(err, result) {
       if (err) {
         throw err;
       }
 
-      return result;
+      d(result);
     });
   }
 };
 
 module.exports = orm;
+
+// routes(burger_controller)-->models(burger.js)-->ORM--> MYSQL(db)
