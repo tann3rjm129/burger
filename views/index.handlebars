@@ -1,38 +1,64 @@
 <h1>Burger Time!</h1>
 
-<h2>Burgers waiting to be eaten!</h2>
+<div class="container">
 
-<ul>
-  {{#each burgers}}
-    {{#unless devoured}}
-      {{> burgers/burger-block devoured=true}}
-    {{/unless}}
-  {{/each}}
-</ul>
+  <form>
+      <p class="h4 text-center mb-4">Add More Burgers to the List!</p>
 
-<h2>Burgers eaten!</h2>
+      <div class="md-form">
+          <input type="text" id="newBurger" class="form-control">
+          <label for="materialFormBurgerName">Add a burger!</label>
+      </div>
 
-<ul>
-  {{#each burgers}}
-    {{#if devoured}}
-      {{> burgers/burger-block devoured=false}}
-    {{/if}}
-  {{/each}}
-</ul>
+      <div class="text-center mt-4">
+          <button class="btn btn-outline-info" id="addBurger" type="submit">Send<i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+      </div>
+  </form>
 
-<h2>Add a Burger</h2>
-<form class="create-form">
+  <div class="row">
 
-  <div class="form-group">
-    <label for="burger">Burger Name:</label>
-    <input type="text" id="burger" name="name">
+    <div class="col-md-6">
+
+        <div class="card">
+            <h3 class="card-header red lighten-1 white-text text-uppercase font-weight-bold text-center py-5">Burger Specials!</h3>
+            <div class="card-body">
+                <ul class="list-group">
+                  {{#each burgers}} {{#unless devoured }}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                          <h3>{{this.id}}.{{burger_name}}</h3>
+                    <button class="eatButton" id="{{this.id}}">
+                        <span class="badge badge-primary badge-pill red lighten-1"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
+                    </button
+                    </li>
+                    {{/unless}} {{/each}} 
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-md-6">
+
+
+        <div class="card">
+            <h3 class="card-header red lighten-1 white-text text-uppercase font-weight-bold text-center py-5">Burgers Eaten</h3>
+            <div class="card-body">
+                <ul class="list-group">
+                  {{#each burgers}} {{#if devoured }}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                          <h3>{{this.id}}.{{burger_name}}</h3>
+                    <button class="eatButton" id="{{this.id}}">
+                        <span class="badge badge-primary badge-pill red lighten-1"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
+                    </button
+                    </li>
+                    {{/if}} {{/each}} 
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
   </div>
 
-  <div class="form-group">
-    <label for="devoured">Burgers Eaten</label><br>
-    <input type="radio" name="devoured" value="1" checked> Eaten!<br>
-    <input type="radio" name="devoured" value="0"> Not Eaten
-  </div>
-
-  <button type="submit">Add Burger</button>
-</form>
+</div>
