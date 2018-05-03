@@ -17,11 +17,21 @@ function objToSql(ob) {
   return arr.toString();
 };
 
+// prints question marks
+function printQuestionMarks(num) {
+  var arr = [];
+
+  for (var i = 0; i < num; i++) {
+    arr.push("?");
+  }
+
+  return arr.toString();
+}
 
 var orm = {
 	selectAll: function(table, d) {
-    var queryString = "SELECT * FROM ??";
-    connection.query(queryString, [table], function(err, result) {
+    var queryString = "SELECT * FROM " + table + ";";
+    connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
       }
@@ -29,20 +39,33 @@ var orm = {
     });
   },
   insertOne: function(table, cols, vals, d) {
-    var queryString = "INSERT INTO ?? (??) VALUES (??)";
+    var queryString = "INSERT INTO " + table;
 
-    connection.query(queryString, [table, cols, vals], function(err, result) {
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
+    console.log(queryString);
+
+    connection.query(queryString, vals, function(err, result) {
       if (err) {
         throw err;
       }
-
       d(result);
     });
   },
-  updateOne: function(table, Objvals, condition, d) {
-    var queryString = "UPDATE ?? SET ?? WHERE ??";
+  updateOne: function(table, ObjVals, condition, d) {
+    var queryString = "UPDATE " + table;
 
-    connection.query(queryString, [table, objToSql(Objvals), condition], function(err, result) {
+    queryString += " SET ";
+    queryString += objToSql(ObjVals);
+    queryString += " WHERE ";
+    queryString += condition;
+
+    connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
       }

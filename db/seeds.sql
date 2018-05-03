@@ -1,4 +1,6 @@
 
-INSERT INTO burgers (burger_name, devoured) VALUES ('cheeseburger', false);
-INSERT INTO burgers (burger_name, devoured) VALUES ('sliders', flase);
-INSERT INTO burgers (burger_name, devoured) VALUES ('bacon-burger', false);
+INSERT INTO burgers (burger_name, devoured) VALUES ('Chorizo Your Own Adventure Burger', false);
+INSERT INTO burgers (burger_name, devoured) VALUES ('Papaya Was A Rolling Stone Burger', false);
+INSERT INTO burgers (burger_name, devoured) VALUES ('If Looks could Kale Burger', false);
+INSERT INTO burgers (burger_name, devoured) VALUES ('The Final Kraut Down Burger', false);
+

@@ -1,33 +1,48 @@
-<h1>Burger Time!</h1>
+
+
+<div class="card" style="background-image: url(http://images4.fanpop.com/image/photos/18100000/Bob-Holding-a-Burger-bobs-burgers-18113791-1680-1050.jpg); background-size: 100% 100%; padding-bottom: 50px;">
 
 <div class="container">
 
-  <form>
-      <p class="h4 text-center mb-4">Add More Burgers to the List!</p>
+  <div class="row">
 
-      <div class="md-form">
-          <input type="text" id="newBurger" class="form-control">
-          <label for="materialFormBurgerName">Add a burger!</label>
-      </div>
+  <div class="col-md-4"></div>
 
-      <div class="text-center mt-4">
-          <button class="btn btn-outline-info" id="addBurger" type="submit">Send<i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+  <div class="col-md-8">
+    <div class="card" style="margin-bottom: 50px; margin-top: 50px; opacity: 0.95;">
+      <div class="card-body">
+          <form class="center">
+              <p class="h4 text-center mb-4 red-text font-bold">Add More Burgers to the List!</p>
+
+              <div class="md-form">
+                  <input type="text" id="newBurger" name="newBurger" class="form-control">
+              </div>
+
+              <div class="text-center mt-4">
+                  <button class="btn btn-outline red lighten-1" id="addBurger" type="submit">Add a Burger!<i class="fa fa-check-square-o" aria-hidden="true" style="margin-left: 10px;"></i></button>
+              </div>
+          </form>
       </div>
-  </form>
+    </div>
+  </div>
+  </div>
 
   <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-4"></div>
 
-        <div class="card">
+
+    <div class="col-md-4">
+
+        <div class="card" style="opacity: 0.95;">
             <h3 class="card-header red lighten-1 white-text text-uppercase font-weight-bold text-center py-5">Burger Specials!</h3>
             <div class="card-body">
                 <ul class="list-group">
                   {{#each burgers}} {{#unless devoured }}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                          <h3>{{this.id}}.{{burger_name}}</h3>
-                    <button class="eatButton" id="{{this.id}}">
-                        <span class="badge badge-primary badge-pill red lighten-1"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
+                          <h3 style="font-size: 16px;">{{this.id}}. {{burger_name}}</h3>
+                    <button class="btn red lighten-1 eatButton" id="{{this.id}}">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
                     </button
                     </li>
                     {{/unless}} {{/each}} 
@@ -38,18 +53,18 @@
 
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
 
 
-        <div class="card">
+        <div class="card" style="opacity: 0.95;">
             <h3 class="card-header red lighten-1 white-text text-uppercase font-weight-bold text-center py-5">Burgers Eaten</h3>
             <div class="card-body">
                 <ul class="list-group">
                   {{#each burgers}} {{#if devoured }}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                          <h3>{{this.id}}.{{burger_name}}</h3>
-                    <button class="eatButton" id="{{this.id}}">
-                        <span class="badge badge-primary badge-pill red lighten-1"><i class="fa fa-cutlery" aria-hidden="true"></i></span>
+                          <h3 class="eaten" style="font-size: 16px;">{{this.id}}. {{burger_name}}</h3>
+                    <button class="btn alreadyEatenButton" id="{{this.id}}">
+                        <i class="fa fa-cutlery" aria-hidden="true"></i>
                     </button
                     </li>
                     {{/if}} {{/each}} 
@@ -59,6 +74,11 @@
 
     </div>
 
+    <div class="col-md-2"></div>
+
+
   </div>
+
+</div>
 
 </div>

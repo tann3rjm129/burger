@@ -14,9 +14,9 @@ router.get("/", function(req, res) {
   });
 });
 
-router.post("/api/burgers", function(req, res) {
+router.post("/", function(req, res) {
   burger.insertOne([
-    "burger_name", "devoured"
+    'burger_name', 'devoured'
   ], [
     req.body.burger_name, req.body.devoured
   ], function(result) {
@@ -26,13 +26,13 @@ router.post("/api/burgers", function(req, res) {
   });
 });
 
-router.put("/api/burgers/:id", function(req, res) {
+router.put("/:id", function(req, res) {
   // condition
-  var burgerId = "id = " + req.params.id;
+  var condition = "id = " + req.params.id;
 
   burger.updateOne({
     devoured: req.body.devoured
-  }, burgerId, function(result) {
+  }, condition, function(result) {
     if (result.changedRows == 0) {
 
       return res.status(404).end();
